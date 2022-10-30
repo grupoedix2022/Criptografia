@@ -93,7 +93,7 @@ public class SocketClienteBiblioteca {
 					} else{
 						salida.println("4" + "-" + isbnIN +"-"+ tituloIN);
 					}
-					System.out.println(entradaBuffer.readLine());
+					System.out.println("Libro añadido");
 					
 					break;
 				default:

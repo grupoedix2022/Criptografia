@@ -35,11 +35,6 @@ public class Biblioteca {
         return returnPacket;
     }
 	
-	public synchronized void resetearCola() {
-		notify();
-		transfer = false;
-	}
-	
 	public synchronized void addLibro(Libro libro) {
 		this.biblioteca.add(libro);
 		transfer = false;

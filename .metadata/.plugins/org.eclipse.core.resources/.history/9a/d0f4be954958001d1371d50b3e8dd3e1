@@ -106,7 +106,6 @@ public class HiloBiblioteca implements Runnable{
 					}else {
 						System.out.println("ISBN no válido");
 						salida.println("ISBN no válido");
-						biblioteca.resetearCola();
 					}
 					break;
 				default:

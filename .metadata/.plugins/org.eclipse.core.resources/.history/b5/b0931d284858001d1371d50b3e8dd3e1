@@ -67,7 +67,7 @@ public class HiloBiblioteca implements Runnable{
 					String apellido = order[2];
 					try {
 					System.out.println("SERVIDOR: El resultado: " + biblioteca.findAutor(nombre, apellido).bibliografiaToString());
-					salida.println(biblioteca.findAutor(nombre, apellido).bibliografiaToString());
+					salida.println(biblioteca.findAutor(nombre, apellido).bibliografiaToStringBio());
 					}catch(NullPointerException e) {
 						salida.println("No se encontró el autor");
 					}
@@ -83,31 +83,24 @@ public class HiloBiblioteca implements Runnable{
 					String tituloAdd = order[2];
 					Libro libro;
 					Autor autor;
-					if (biblioteca.findIsbn(isbnAdd)==null) {
-						if (order.length>3) {
-							String nombreAdd = order[3];
-							String apellidoAdd = order[4];
-							if (biblioteca.findAutor(nombreAdd, apellidoAdd) != null) {
-								autor = biblioteca.findAutor(nombreAdd,apellidoAdd);
-								libro = new Libro(tituloAdd, isbnAdd, autor);
-								autor.addLibro(libro);
-							}else {
-								autor = new Autor(nombreAdd, apellidoAdd);
-								libro = new Libro(tituloAdd, isbnAdd, autor);
-								autor.addLibro(libro);
-							}
+					if (order.length>3) {
+						String nombreAdd = order[3];
+						String apellidoAdd = order[4];
+						if (biblioteca.findAutor(nombreAdd, apellidoAdd) != null) {
+							autor = biblioteca.findAutor(nombreAdd,apellidoAdd);
+							libro = new Libro(tituloAdd, isbnAdd, autor);
+							autor.addLibro(libro);
 						}else {
-							libro = new Libro(tituloAdd, isbnAdd);
+							autor = new Autor(nombreAdd, apellidoAdd);
+							libro = new Libro(tituloAdd, isbnAdd, autor);
+							autor.addLibro(libro);
 						}
-						
-						biblioteca.addLibro(libro);					
-						System.out.println("Libro añadido:" + biblioteca.findIsbn(isbnAdd).toString());
-						salida.println("Libro añadido:" + biblioteca.findIsbn(isbnAdd).toString());
 					}else {
-						System.out.println("ISBN no válido");
-						salida.println("ISBN no válido");
-						biblioteca.resetearCola();
+						libro = new Libro(tituloAdd, isbnAdd);
 					}
+					
+					biblioteca.addLibro(libro);					
+					System.out.println("Libro añadido:" + biblioteca.findIsbn(isbnAdd).toString());
 					break;
 				default:
 					salida.println("No válido");
